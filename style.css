@@ -1,0 +1,114 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background: #000;
+}
+
+/* GAME AREA + attractive animated background */
+#gameArea {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background: radial-gradient(circle at 40% 20%, #0a2540 0%, #000814 40%, #000000 100%);
+    overflow: hidden;
+}
+
+/* faint moving nebula / star texture - uses a hosted image (if offline it still looks fine) */
+#gameArea::before {
+    content: "";
+    position: absolute;
+    inset: -20% -20% -20% -20%;
+    background-image: url('https://i.imgur.com/9fJrjz5.png');
+    opacity: 0.18;
+    transform-origin: center;
+    animation: slowDrift 30s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes slowDrift {
+    from { transform: translateY(0) rotate(0deg) scale(1); }
+    to   { transform: translateY(-10%) rotate(20deg) scale(1.05); }
+}
+
+/* small twinkling stars */
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    opacity: 0.85;
+    border-radius: 50%;
+    animation: fallStars linear infinite;
+}
+
+@keyframes fallStars {
+    from { transform: translateY(0); opacity: 0.9; }
+    to { transform: translateY(100vh); opacity: 0.2; }
+}
+
+/* HUD */
+#hud {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    color: #e6f7ff;
+    font-size: 18px;
+    z-index: 999;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Player - triangular ship (keeps your earlier style) */
+#player {
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 40px solid cyan;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+}
+
+/* Bullet - keep visual laser style */
+.bullet {
+    width: 6px;
+    height: 20px;
+    background: yellow;
+    position: absolute;
+    border-radius: 4px;
+    box-shadow: 0 0 10px yellow, 0 0 18px orange;
+    z-index: 40;
+}
+
+/* Enemy - circular */
+.enemy {
+    width: 40px;
+    height: 40px;
+    background: #ff4d4d;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 45;
+    box-shadow: 0 0 8px rgba(255,77,77,0.6);
+}
+
+/* Start & End screens */
+.screen {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #cbe7ff;
+    font-size: 38px;
+    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75));
+    z-index: 1000;
+    text-align: center;
+}
+
+.hidden { display: none; }
